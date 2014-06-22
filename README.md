@@ -6,7 +6,7 @@ This is a very simple Python/GTK frontend to my previouse password generator scr
 screenshot:
 ------
 
-TO BE ADDED SOON
+![pwdgen](https://raw.githubusercontent.com/bijanebrahimi/pwdgen/master/snapshot.png "pwdgen at work")
 
 Concepts
 ------
