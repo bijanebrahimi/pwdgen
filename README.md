@@ -8,6 +8,14 @@ screenshot:
 
 ![pwdgen](https://raw.githubusercontent.com/bijanebrahimi/pwdgen/master/snapshot.png "pwdgen at work")
 
+Web Interface:
+------
+
+In case you are not at your desk or simply do not have access to pwdgen script, it's still possible to regenerate your password via it's web interface. it generates the password locally using javascript so there's no security problems using it.
+
+* [pwdgen web interface](http://bijanebrahimi.github.io/pwdgen/)
+* [pwdgen web interface source code](https://github.com/bijanebrahimi/pwdgen/tree/gh-pages/)
+
 Concepts
 ------
 
