@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Password Generator [Web Application]</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body style="background:#efefe9;">
+    <div>
+      <div class="container">
+        <div class="">
+          <div class="row">
+            <section>
+              <div class="container">
+                <div class="row">
+                  <div class="board">
+                    <!-- <h2>Welcome to IGHALO!<sup>™</sup></h2>-->
+                    <div class="board-inner">
+                      <ul class="nav nav-tabs" id="myTab">
+                        <div class="liner"></div>
+                        <li class="active">
+                          <a href="#home" data-toggle="tab" title="Generate password">
+                            <span class="round-tabs one">
+                              <i class="fa fa-key"></i>
+                            </span> 
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#download" data-toggle="tab" title="Download">
+                            <span class="round-tabs two">
+                              <i class="fa fa-download"></i>
+                            </span> 
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#how" data-toggle="tab" title="How it works">
+                            <span class="round-tabs three">
+                              <i class="fa fa-code"></i>
+                            </span> 
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#issues" data-toggle="tab" title="Issues">
+                            <span class="round-tabs four">
+                              <i class="fa fa-question"></i>
+                            </span> 
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#github" data-toggle="tab" title="Opensource">
+                            <span class="round-tabs five">
+                              <i class="fa fa-github"></i>
+                            </span> 
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="tab-content">
+                      <div class="tab-pane fade in active" id="home">
+
+                        <h3 class="head text-center">
+                          regenrate your passwords Easily
+                        </h3>
+                        
+                        <div class="container col-xs-10 col-xs-offset-1">
+                          <div class="row form-group">
+                            <div class="input-group">
+                              <input id="master_key" type="password" class="form-control" placeholder="Master Password">
+                              <span class="input-group-addon primary"><span class="fa fa-key"></span></span>
+                            </div>
+                          </div>
+                          <div class="row form-group">
+                            <div class="input-group">
+                              <input id="salt_domain" type="text" class="form-control" placeholder="Salt / Domain">
+                              <span class="input-group-addon success"><span class="fa fa-key"></span></span>
+                            </div>
+                          </div>
+                          <div class="row form-group">
+                            <div class="input-group">
+                              <input id="offset" type="text" class="form-control" placeholder="Offset">
+                              <span class="input-group-addon success"><span class="fa  fa-sort-numeric-asc"></span></span>
+                              
+                              <input id="length" type="text" class="form-control" placeholder="Length">
+                              <span class="input-group-addon success"><span class="fa  fa-sort-numeric-asc"></span></span>
+                            </div>
+                          </div>
+                          <div class="row form-group">
+                            <button class="btn btn-success btn-block">
+                              <span style="margin-left:10px; font-size: 1em;" class="fa fa-refresh"></span>
+                              Generate Password
+                            </button>
+                          </div>
+                          <div class="row form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon warning">Password</span>
+                              <input id="password" type="text" class="form-control" placeholder="Generated password" readonly value="asd">
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <script type="text/javascript">
+                          $(document).ready(function(){
+                            $('button').click(function(){
+                              var master_key = $('#master_key').val()
+                              var salt_domain = $('#salt_domain').val()
+                              var offset = parseInt($('#offset').val())
+                              var length = parseInt($('#length').val())
+                              
+                              raw_password = (master_key+salt_domain).md5().b64encode()
+                              mirrored_password = raw_password.repeat(Math.floor((offset+length)/44) + 1)
+                              password = mirrored_password.substring(offset, offset+length)
+                              console.log(password)
+                              $('#password').val(password)
+                            })
+                          })
+                        </script>
+                      </div>
+                      <div class="tab-pane fade" id="download">
+                        <h3 class="head text-center">Download & Use Native</h3>
+                        <p class="text-center">
+                          you can also download a client version for local uses. <br>
+                          both downloads are only available on linux based platforms for now.
+                        </p>
+                        <p class="text-center">
+                          <a href="http://github.com/bijanebrahimi/pwdgen" class="btn btn-success green">
+                            GTK+ Frontend
+                          </a>
+                          <a href="https://gitorious.org/pwdgen" class="btn btn-success green">
+                            Bash Command-line
+                          </a>
+                        </p>
+                      </div>
+                      <div class="tab-pane fade" id="how">
+                        <h3 class="head text-center">How It Works</h3>
+                        <p class="narrow text-center">
+                          it's easier for me to show the code than talking about the silly details. so here we go:
+                        </p>
+
+                        <pre style="margin:50px; padding:15px;"><code>raw_password = (master_key + salt_domain).md5().b64encode()
+mirrored_password = raw_password.repeat(Math.floor((offset + length) / 44) + 1)
+password = mirrored_password.substring(offset, offset + length)
+</code>
+                        </pre>
+                      </div>
+                      <div class="tab-pane fade" id="issues">
+                        <h3 class="head text-center">Issues!</h3>
+                        <ul>
+                          <li class="narrow">
+                            the generated password is only consists of alpha numerical characters.
+                          </li>
+                          <li class="narrow">
+                            for more information visit the project page at <a href="https://github.com/bijanebrahimi/pwdgen">github</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="tab-pane fade" id="github">
+                        <div class="text-center">
+                          <i class="img-intro icon-checkmark-circle"></i>
+                        </div>
+                        <h3 class="head text-center">
+                          thank you <span style="color:#f48260;">♥</span> for Using pwdgen!
+                        </h3>
+                        <p class="narrow text-center">
+                          PWDGEN is Free and Opensource and You can <span class="fa fa-code-fork"></span> the project here on <a href="https://github.com/bijanebrahimi/pwdgen">Github</a>.
+                        </p>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/base64.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
